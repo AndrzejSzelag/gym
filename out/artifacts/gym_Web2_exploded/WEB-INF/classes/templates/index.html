@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>GYM</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/css/icons.css" th:href="@{/css/icons.css}"/>
+    <link rel="stylesheet" href="/css/message.css" th:href="@{/css/message.css}"/>
+</head>
+<body>
+<header th:insert="~{menu.html}"></header>
+<div class="container">
+    <div class="mt-4" style="color: #666666;">
+        <div class="d-flex justify-content-end"><span class="h5 fw-semibold" th:text="${name}"/>&nbsp;
+            <form method="post" role="form" th:action="@{/logout}">
+                <button class="btn btn-sm btn-danger shadow-sm" type="submit" th:text="#{form.logout}"></button>
+            </form>
+        </div>
+    </div>
+    <div class="form-group mt-lg-5" style="color: #666666;">
+        <div class="display-5 fw-semibold mt-3 mb-3"><span th:text="#{index.info.text}"/></div>
+        <div class="h3 fw-semibold mt-3 mb-5" style="padding-left: 30px"><span th:text="#{index.info.subtext}"/></div>
+    </div>
+    <div class="form-group mt-lg-5 mb-3">
+        <a class="display-6 link-dark link-underline-opacity-0 link-opacity-75-hover" th:href="@{/users}">
+            <span class="display-6"><i class="lni lni-users" style="color: red;"></i></span>&nbsp;<span th:text="#{index.show.users}"/></a>
+        <div class="mt-2 ps-xxl-5 h5 fw-light"><span th:text="#{index.show.users.text}"/></div>
+    </div>
+    <div class="form-group mt-lg-5 mb-3">
+        <a class="display-6 link-dark link-underline-opacity-0 link-opacity-75-hover" th:href="@{/add}">
+            <span class="display-6"><i class="lni lni-customer" style="color: red;"></i></span>&nbsp;<span th:text="#{index.new.client}"/></a>
+        <div class="mt-2 ps-xxl-5 h5 fw-light"><span th:text="#{index.new.client.text}"/></div>
+    </div>
+    <div class="form-group mt-lg-5 mb-3">
+        <a class="display-6 link-dark link-underline-opacity-0 link-opacity-75-hover" th:href="@{/clients}">
+            <span class="display-6"><i class="lni lni-network" style="color: red;"></i></span>&nbsp;<span th:text="#{index.show.clients}"/></a>
+        <div class="mt-2 ps-xxl-5 h5 fw-light"><span th:text="#{index.show.clients.text}"/></div>
+    </div>
+</div>
+</body>
+</html>

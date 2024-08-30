@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>GYM</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/css/icons.css" th:href="@{/css/icons.css}"/>
+    <link rel="stylesheet" href="/css/message.css" th:href="@{/css/message.css}"/>
+</head>
+<body>
+<header th:insert="~{menu.html}"></header>
+<div class="container">
+    <div class="row">
+        <div class="mt-4 card col-sm-8 offset-sm-2 shadow-sm" style="background-color: #fafafa;">
+            <div class="card-body">
+                <div class="display-4 mt-2 mb-2 d-flex justify-content-center"><i class="lni lni-code" style="color: red;"></i></div>
+                <div class="display-6 mt-2 mb-2 d-flex justify-content-center" th:text="#{user.login.header}"/>
+                <div class="mt-4 mb-4 d-flex justify-content-center">
+                    <span th:text="#{login.register.user.no}"/>&nbsp;<a th:href="@{/register}" class="link-dark link-underline-opacity-25 link-opacity-75-hover fw-bold"><span th:text="#{login.register.account}"/></a></div>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger text_message"><span th:text="#{login.register.user.error}"/></div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-success text_message"><span th:text="#{login.register.user.success}"/></div>
+                </div>
+                <form method="post" role="form" th:action="@{/login}" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="form-label" th:text="#{form.email} + '*'"/>
+                        <label for="username"></label>
+                        <input class="form-control" id="username" name="username" type="text" required/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" th:text="#{form.password} + '*'"/>
+                        <label for="password"></label>
+                        <input class="form-control" id="password" name="password" type="password" required/>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center">
+                        <span class="h4">
+                            <button class="btn btn-light shadow-sm fw-bold" type="submit" th:text="#{form.login}"/>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

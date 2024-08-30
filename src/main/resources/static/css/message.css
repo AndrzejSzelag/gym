@@ -1,0 +1,25 @@
+.text_message {
+    position: relative;
+    animation-name: text_message;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes text_message {
+    0% {
+        opacity: 1;
+        margin: 0 0 10px 0;
+    }
+    50% {
+        opacity: 1;
+        margin: 0 0 10px 0;
+    }
+    75% {
+        opacity: 0.2;
+        margin: 0 0 10px 0;
+    }
+    100% {
+        opacity: 0;
+        margin: 0 0 -50px 0;
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>GYM</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/css/icons.css" th:href="@{/css/icons.css}"/>
+    <link rel="stylesheet" href="/css/message.css" th:href="@{/css/message.css}"/>
+</head>
+<body>
+<header th:insert="~{menu.html}"></header>
+<div class="container">
+    <div class="mt-4">
+        <div class="row col-md-8 offset-md-2">
+            <div class="card shadow-sm" style="background-color: #fafafa;">
+                <div class="card-body">
+                    <div class="display-4 mt-2 mb-2 d-flex justify-content-center"><i class="lni lni-customer" style="color: red;"></i></div>
+                    <div class="display-6 mt-2 mb-2 d-flex justify-content-center" th:text="#{client.details.header}"/>
+                    <ul class="form-group form-group-flush mb-5">
+                        <li class="list-group-item mt-5 mb-3 h4 fw-light"><i class="lni lni-smile" style="color: red; padding-right: 10px;"></i><span th:text="${client.firstName}"/>
+                            <span th:text="${client.lastName}"/></li>
+                        <li class="list-group-item mt-3 mb-3 h4 fw-light"><i class="lni lni-envelope" style="color: red; padding-right: 10px;"></i><span th:text="${client.email}"/></li>
+                        <li class="list-group-item mt-3 mb-3 h4 fw-light"><i class="lni lni-mobile" style="color: red; padding-right: 10px;"></i><span th:text="${client.phone}"/></li>
+                        <li class="list-group-item mt-3 mb-3 h4 fw-light">
+                            <i class="lni lni-home" style="color: red; padding-right: 10px;"></i><span th:text="${client.address.street}"/>
+                            <span th:text="${client.address.streetNumber}"/>
+                            <span th:if="${client.address.homeNumber}" th:text="${'/ ' + client.address.homeNumber}"/>
+                            <span th:text="${client.address.postCode}"/>
+                            <span th:text="${client.address.city}"/>
+                        </li>
+                        <li class="list-group-item mt-3 mb-1 h4 fw-light"><i class="lni lni-calendar" style="color: red; padding-right: 10px;"></i><span th:text="${client.getRegistrationDate()}"/></li><span style="padding-left: 33px;" th:text="#{registration.date}"></span>
+                        <li class="list-group-item mt-3 mb-1 h4 fw-light"><i class="lni lni-calendar" style="color: red; padding-right: 10px;"></i><span th:text="${client.getExpirationDate()}"/></li><span style="padding-left: 33px;" th:text="#{expiration.date}"></span>
+                    </ul>
+                    <div class="mt-3 d-flex justify-content-center">
+                        <form th:action="@{'/clients'}" method="get">
+                            <button type="submit" th:text="#{form.clients}" class="btn btn-light shadow-sm fw-bold"/>
+                        </form>
+                        &nbsp;<a class="btn btn-light shadow-sm fw-bold" aria-current="page" th:href="@{/index}"><span th:text="#{home.page}"/></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
