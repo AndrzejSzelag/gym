@@ -2,6 +2,7 @@
 ### Web-based application to collect information about the members of a gym
 
 ![login.java](login.png "GYM")
+![clients.java](cliwents.png "GYM")
 
 ### Tech Stack
 * 🔶 Java 17.0.6 LTS
