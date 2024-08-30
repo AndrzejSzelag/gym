@@ -1,6 +1,8 @@
 # GYM
 ### Web-based application to collect information about the members of a gym
 
+![login.java](login.png "GYM")
+
 ### Tech Stack
 * 🔶 Java 17.0.6 LTS
 * 🔶 Spring Boot 3.3.2
