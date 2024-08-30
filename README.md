@@ -28,7 +28,7 @@ Coming Soon
    * __Apache Maven 3.9.8__,
    * __PostgreSQL 13.6__:
 
-**ATTENTION**: You need to create a schema, database, user, password and put them in the __application.properties__ file e.g.:
+**ATTENTION**: You need to create a schema, database, user, password and put them in the __application.properties__ file:
 
           spring.datasource.url=jdbc:postgresql://localhost:5432/<YOUR_DATABASE>
           spring.datasource.username=<YOUR_USER>
