@@ -1,7 +1,7 @@
 # GYM
 ### Web-based application to collect information about the members of a gym
 
-![login.java](login.png "GYM")
+![login_blad.java](login_blad.png "GYM")
 ![clients.java](clients.png "GYM")
 
 ### Tech Stack
