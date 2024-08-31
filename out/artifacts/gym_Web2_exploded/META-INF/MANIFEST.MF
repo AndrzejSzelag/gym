@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Created-By: IntelliJ IDEA
-Built-By: Andrzej
-Build-Jdk: 17.0.6
-Implementation-Title: gym
-Implementation-Version: 1.0.0
-Implementation-Vendor-Id: pl.szelag.gym
-Main-Class: ${start-class}
-
