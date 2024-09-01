@@ -1,5 +1,5 @@
 # GYM
-### Web-based application to collect information about the members of a gym
+### A web-based business application with Spring Boot to collect information about the members of a gym
 
 ![login_blad.java](login_blad.png "GYM - login")
 ![index.java](index.png "GYM - index")
