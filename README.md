@@ -1,7 +1,7 @@
 # GYM
 ### A web-based business application with Spring Boot to collect information about the members of a gym
 
-🔶 🔶 🔶 Inside this project you find: __Builder Design Pattern__ 🔶 🔶 🔶 
+🔶🔶🔶 Inside this project you find: __Builder Design Pattern__ 🔶🔶🔶 
 
 ![login_blad.java](login_blad.png "GYM - login")
 ![index.java](index.png "GYM - index")
