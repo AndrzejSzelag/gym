@@ -1,4 +1,4 @@
-# GYM
+# GYM ![Build Status](https://img.shields.io/github/actions/workflow/status/AndrzejSzelag/gym/ci.yml?branch=main) ![Coverage](https://img.shields.io/codecov/c/github/AndrzejSzelag/gym) ![Last Commit](https://img.shields.io/github/last-commit/AndrzejSzelag/gym)
 
 ![Java](https://img.shields.io/badge/Java-21-007396?logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.2-6DB33F?logo=springboot&logoColor=white)
@@ -12,9 +12,6 @@
 ![Checkstyle](https://img.shields.io/badge/Checkstyle-3.5-blue)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/AndrzejSzelag/gym/ci.yml?branch=main)
-![Coverage](https://img.shields.io/codecov/c/github/AndrzejSzelag/gym)
-![Last Commit](https://img.shields.io/github/last-commit/AndrzejSzelag/gym)
 
 
 A professional web application for managing gym memberships, built with **Java 21 LTS**, **Spring Boot 3.4.2**,
