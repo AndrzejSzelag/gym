@@ -1,0 +1,45 @@
+<div th:fragment="pagination(baseUrl)">
+    <div th:if="${totalPages > 1}">
+        <div class="col col-md-12 d-flex justify-content-center">
+            <ul class="pagination pagination-sm">
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{${baseUrl}(pageNo=1, sortField=${sortField}, sortDirection=${sortDirection},
+                       pageSize=${pageSize}, keyword=${keyword})}">
+                        &laquo;
+                    </a>
+                </li>
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{${baseUrl}(pageNo=${currentPage - 1}, sortField=${sortField},
+                       sortDirection=${sortDirection}, pageSize=${pageSize}, keyword=${keyword})}">
+                        &lt;
+                    </a>
+                </li>
+                <li class="page-item disabled" th:if="${currentPage > 2}">
+                    <span class="page-link">...</span>
+                </li>
+                <li class="page-item active">
+                    <span class="page-link" th:text="${currentPage}">1</span>
+                </li>
+                <li class="page-item disabled" th:if="${currentPage < totalPages - 1}">
+                    <span class="page-link">...</span>
+                </li>
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{${baseUrl}(pageNo=${currentPage + 1}, sortField=${sortField},
+                       sortDirection=${sortDirection}, pageSize=${pageSize}, keyword=${keyword})}">
+                        &gt;
+                    </a>
+                </li>
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{${baseUrl}(pageNo=${totalPages}, sortField=${sortField},
+                       sortDirection=${sortDirection}, pageSize=${pageSize}, keyword=${keyword})}">
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1124 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800');
+
+/* ========================================================================= */
+/* 1. RESET AND CSS VARIABLES                                                */
+/* ========================================================================= */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --color-primary: #555555;
+    --color-dark: #444444;
+    --color-text: #555555;
+    --color-danger: #c00000;
+    --color-danger-dark: #8f0000;
+    --color-danger-light: #f5c2c7;
+    --color-danger-bg: #f8d7da;
+    --color-danger-text: #721c24;
+    --color-success: #28a745;
+    --color-success-dark: #155724;
+    --color-success-light: #c3e6cb;
+    --color-success-bg: #d4edda;
+    --color-success-text: #155724;
+    --color-warning: #ffc107;
+    --color-warning-text: #856404;
+    --color-warning-bg: #fff3cd;
+    --color-gray-light: #f8f9fa;
+    --color-gray: #999999;
+    --color-border: #e4e4e4;
+    --color-white: #ffffff;
+    --color-bg: #fafafa;
+    --color-highlight: #fded92;
+
+    /* Gradients */
+    --gradient-light: linear-gradient(180deg, #ffffff, #f8f9fa);
+    --gradient-danger: linear-gradient(135deg, #fdf1f1 0%, #f8d7da 100%);
+    --gradient-danger-subtle: linear-gradient(135deg, #fdf1f1 0%, #fff5f5 100%);
+    --gradient-success: linear-gradient(135deg, #e8f5e9 0%, #d4edda 100%);
+    --gradient-warning: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+
+    /* Shadows */
+    --shadow-base: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-alert: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-focus: 0 0 5px rgba(220, 53, 69, 0.5);
+
+    /* Transitions */
+    --transition-base: all 0.25s ease;
+    --transition-fast: all 0.2s ease;
+    --transition-border: border-color 0.3s, box-shadow 0.3s;
+
+    /* Layout & Borders */
+    --border-radius: 5px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 15px;
+    --border-width: 1px;
+
+    /* Horizontal Rule Decor */
+    --hr-line-offset: 25%;
+    --hr-color: #555555;
+    --hr-text-color: #000000;
+    --hr-text-offset: 2ch;
+    --hr-thickness: 2px;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+}
+
+input {
+    font-size: 1rem;
+}
+
+hr.gradient-center-light {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 0.4),
+            transparent
+    );
+    margin: 20px 0;
+}
+
+/* ========================================================================= */
+/* 2. LAYOUT                                                                 */
+/* ========================================================================= */
+
+.app-background {
+    background: var(--gradient-light);
+    min-height: 100vh;
+}
+
+.app-display-name {
+    white-space: nowrap;
+    text-align: center;
+    letter-spacing: 0;
+    font-size: 3rem;
+    font-weight: bolder;
+    color: var(--color-primary);
+}
+
+.display-header {
+    text-align: center;
+    letter-spacing: 0;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: var(--color-primary);
+}
+
+.display-6 {
+    color: var(--color-primary);
+    font-weight: bolder;
+    letter-spacing: 0;
+}
+
+/* ========================================================================= */
+/* 3. BADGES                                                                 */
+/* ========================================================================= */
+
+.badge {
+    font-style: normal !important;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+}
+
+.no-membership,
+#renewClientExpiration.no-membership,
+.badge.no-membership {
+    background-color: var(--color-warning) !important;
+    color: #000 !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    border-radius: var(--border-radius) !important;
+    padding: .35rem .6rem !important;
+    display: inline-block !important;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d !important;
+    color: var(--color-white) !important;
+}
+
+/* ========================================================================= */
+/* 4. MODAL BACKDROP                                                         */
+/* ========================================================================= */
+
+.modal-backdrop {
+    transition: opacity 0.15s linear;
+}
+
+body:not(.modal-open) .modal-backdrop {
+    display: none !important;
+}
+
+/* ========================================================================= */
+/* 5. BUTTONS - BASE STYLES AND VARIANTS                                     */
+/* ========================================================================= */
+
+/* Shared hover transitions for action buttons */
+.btn-danger,
+.confirm-btn-danger-red,
+.confirm-btn-success-green,
+.close-btn {
+    border: none;
+    padding: 8px 18px;
+    border-radius: var(--border-radius-md);
+    font-weight: 500;
+    transition: var(--transition-base);
+}
+
+.btn-danger:hover,
+.confirm-btn-danger-red:hover,
+.confirm-btn-success-green:hover,
+.close-btn:hover {
+    color: var(--color-white);
+    transform: translateY(-1px);
+}
+
+/* Button: Login & Register primary action */
+.btn-danger {
+    background-color: var(--color-danger) !important;
+    color: var(--color-white);
+    padding: 10px;
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger-dark) !important;
+}
+
+/* Buttons: Error Modal (Red theme) */
+.confirm-btn-danger-red {
+    background-color: var(--color-danger-light) !important;
+    color: var(--color-danger-text);
+}
+
+.confirm-btn-danger-red:hover {
+    background-color: var(--color-danger-text) !important;
+}
+
+/* Buttons: Success Modals (Green theme) */
+.confirm-btn-success-green {
+    background-color: var(--color-success-light) !important;
+    color: #309346;
+}
+
+.confirm-btn-success-green:hover {
+    background-color: var(--color-success-dark) !important;
+}
+
+/* Buttons: Modal secondary action (Cancel) */
+.cancel-btn {
+    background-color: var(--color-white);
+    border: var(--border-width) solid #cccccc;
+    color: var(--color-text);
+    font-weight: 500;
+    transition: var(--transition-base);
+}
+
+.cancel-btn:hover {
+    border-color: #cccccc !important;
+    color: #000000;
+    transform: translateY(-1px);
+}
+
+/* Buttons: Modal secondary action (Gray Close) */
+.close-btn {
+    background-color: var(--color-gray) !important;
+    color: var(--color-white);
+}
+
+.close-btn:hover {
+    background-color: var(--color-primary) !important;
+}
+
+/* Modal header close button (X) */
+.custom-close {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    width: 1.6rem;
+    height: 1.6rem;
+    opacity: 0.85;
+    filter: invert(25%) sepia(5%) saturate(500%) hue-rotate(180deg);
+    transition: var(--transition-base);
+}
+
+.custom-close:hover {
+    opacity: 1;
+    filter: invert(18%) sepia(82%) saturate(4500%) hue-rotate(345deg);
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* ========================================================================= */
+/* 6. FORMS - INPUTS AND SELECTS                                             */
+/* ========================================================================= */
+
+.form-input,
+.form-control,
+.page-size-select,
+.search-input {
+    font-family: "Nunito", sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-border) !important;
+    border-radius: var(--border-radius);
+    transition: var(--transition-border);
+}
+
+.page-size-select {
+    max-width: 75px;
+    padding: 5px;
+}
+
+.search-input {
+    max-width: 250px;
+    padding: 5px;
+}
+
+.form-control-sm {
+    font-size: 1rem !important;
+}
+
+/* Active search input highlight */
+.search-input:not(:placeholder-shown) {
+    font-weight: bolder;
+    background-color: var(--color-highlight);
+    color: #333333;
+    border-color: var(--color-danger-light) !important;
+    box-shadow: var(--shadow-focus) !important;
+    outline: none;
+}
+
+/* Icon addon for input groups */
+.form-input-group-text {
+    display: flex;
+    white-space: nowrap;
+    background-color: var(--color-white);
+    border: var(--border-width) solid var(--color-border) !important;
+    color: var(--color-text);
+    font-size: 1rem;
+    border-radius: 6px 0 0 6px;
+    transition: var(--transition-border);
+}
+
+/* Unified focus states */
+.form-control:focus,
+.page-size-select:focus,
+.search-input:focus,
+.input-group:focus-within .form-input,
+.input-group:focus-within .form-input-group-text,
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+    border-color: var(--color-danger-light) !important;
+    box-shadow: var(--shadow-focus) !important;
+    outline: none;
+}
+
+/* ========================================================================= */
+/* 7. BROWSER AUTOCOMPLETE OVERRIDES                                         */
+/* ========================================================================= */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--color-white) inset !important;
+    -webkit-text-fill-color: var(--color-text) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-moz-autofill,
+input:-moz-autofill-preview {
+    filter: none !important;
+    background-color: var(--color-white) !important;
+    color: var(--color-text) !important;
+    font-family: "Nunito", sans-serif !important;
+}
+
+/* ========================================================================= */
+/* 8. CARDS                                                                  */
+/* ========================================================================= */
+
+.login-card,
+.register-card,
+.error-card {
+    width: 600px;
+    animation: fadeUp .35s ease-out;
+}
+
+.card {
+    border-radius: var(--border-radius-lg);
+    border: var(--border-width) solid var(--color-border);
+}
+
+.card.bg-light {
+    background: var(--gradient-light) !important;
+}
+
+.card-body {
+    padding: 1.5em;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================================================= */
+/* 9. MODALS - BASE WRAPPER                                                  */
+/* ========================================================================= */
+
+.renew-modal,
+.details-modal,
+.delete-modal,
+.add-client-modal,
+.edit-client-modal,
+.error-modal,
+.success-modal {
+    border-radius: var(--border-radius-lg);
+    border: var(--border-width) solid var(--color-border) !important;
+    box-shadow: var(--shadow-base);
+    animation: fadeUp 0.35s ease-out;
+    overflow: hidden;
+}
+
+.modal-header {
+    position: relative;
+    align-items: center;
+}
+
+/* ========================================================================= */
+/* 10. MODAL HEADERS                                                         */
+/* ========================================================================= */
+
+/* Standard header theme */
+.renew-header,
+.details-header,
+.add-header,
+.edit-header,
+.delete-header {
+    background: var(--gradient-light);
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-border);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Error header theme */
+.error-header {
+    background: var(--gradient-danger);
+    color: var(--color-danger-text);
+    border-bottom: 2px solid var(--color-danger-light);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Success header theme */
+.success-header {
+    background: var(--gradient-success);
+    color: var(--color-success-text);
+    border-bottom: 2px solid var(--color-success-light);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Decorative icons in modal headers */
+.renew-header i,
+.details-header i,
+.edit-header i,
+.delete-header i,
+.add-header i {
+    font-size: 1.3rem;
+    color: #ff0000;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+
+/* ========================================================================= */
+/* 11. MODAL BODIES                                                          */
+/* ========================================================================= */
+
+.add-body,
+.edit-body,
+.renew-body,
+.details-body,
+.delete-body,
+.success-body,
+.error-body {
+    background-color: var(--color-white);
+    font-size: 1rem;
+    padding: 1.5rem;
+    color: var(--color-text);
+}
+
+.modal-body label {
+    color: var(--color-text);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.modal-body p {
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.modal-body .form-control,
+.modal-body .form-select {
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    font-family: "Nunito", sans-serif;
+}
+
+/* ========================================================================= */
+/* 12. MODAL FOOTERS                                                         */
+/* ========================================================================= */
+
+.add-footer,
+.edit-footer,
+.renew-footer,
+.details-footer,
+.delete-footer,
+.success-footer,
+.error-footer {
+    background: var(--gradient-light);
+    border-top: var(--border-width) solid var(--color-border);
+    border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+    padding: 1rem 1.5rem;
+}
+
+/* ========================================================================= */
+/* 13. MODAL INFO BOXES                                                      */
+/* ========================================================================= */
+
+.delete-client-info {
+    background: var(--gradient-danger-subtle);
+    border: var(--border-width) solid var(--color-danger-light);
+    border-radius: var(--border-radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.delete-client-info i {
+    color: var(--color-danger);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.subscription-info {
+    background: var(--gradient-light);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.delete-client-info, .details-client-info, .renew-client-info {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+#modalClientEmail {
+    display: inline-block;
+    max-width: 100%;
+}
+
+/* ========================================================================= */
+/* 14. ACCORDION                                                             */
+/* ========================================================================= */
+
+.accordion-button {
+    background-color: var(--color-gray-light);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-border);
+    font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+    background: var(--gradient-danger-subtle);
+    color: var(--color-danger-text);
+    border-color: var(--color-danger-light);
+}
+
+.accordion-button:focus {
+    border-color: var(--color-danger-light);
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+}
+
+.accordion-body {
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-border);
+    border-top: none;
+}
+
+/* ========================================================================= */
+/* 15. TABLES - DATA AND CLIENT LISTS                                        */
+/* ========================================================================= */
+
+.clients-table thead th {
+    white-space: nowrap;
+    font-size: 1rem;
+    padding: 0.5rem 0.3rem;
+}
+
+.clients-table td.actions-col {
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.data-table {
+    table-layout: auto;
+    width: 100%;
+    max-width: 100%;
+    border: none;
+}
+
+.data-table thead {
+    line-height: 1.5;
+    border-bottom: 3px solid var(--color-border);
+    font-size: 1rem;
+}
+
+.table th a {
+    cursor: pointer;
+    padding: 4px 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.table th a:hover i {
+    transform: translateY(-1px);
+}
+
+.data-table thead a {
+    color: var(--color-dark);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.data-table thead a:hover {
+    opacity: 0.8;
+}
+
+.clients-table {
+    vertical-align: middle;
+}
+
+.data-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.data-table th, .data-table td {
+    border-bottom: var(--border-width) solid var(--color-border);
+    transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:hover td {
+    background-color: var(--color-bg);
+}
+
+.data-table th,
+.data-table td {
+    vertical-align: middle;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+    padding: 12px 7px;
+}
+
+.data-table td {
+    font-size: 1rem;
+    color: var(--color-dark);
+}
+
+/* Actions Column Width Control */
+.actions-col {
+    width: 22%;
+    min-width: 360px;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Membership Status & Expiration Column */
+.membership-status-col {
+    width: 20%;
+    min-width: 300px;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+}
+
+tbody td.membership-status-col-bg {
+    background-color: var(--color-gray-light) !important;
+}
+
+th.membership-status-col.expiration-date {
+    text-align: center;
+    background-color: var(--color-gray-light) !important;
+    box-shadow: inset 0 +2px 0 0 var(--color-gray) !important;
+}
+
+/* Styling for the last row in the colored status column */
+tbody tr:last-child td.membership-status-col-bg {
+    box-shadow: inset 0 -2px 0 0 var(--color-gray) !important;
+}
+
+tbody td.membership-status-col-bg {
+    background-color: var(--color-gray-light) !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+/* Inline Action Buttons */
+.actions {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.actions .btn {
+    background-color: var(--color-gray-light);
+    border: none !important;
+    color: var(--color-dark);
+    font-weight: 700 !important;
+    padding: 5px 10px !important;
+    min-width: 95px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.actions .btn i {
+    color: var(--color-danger) !important;
+}
+
+.actions .btn:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    color: #212529;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+/* Specialized Table Columns */
+.column-number {
+    width: 60px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--color-dark);
+}
+
+.phone-number {
+    width: 120px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    color: var(--color-dark);
+}
+
+.data-table td button:hover, .data-table td a:hover {
+    transform: translateY(-1px);
+}
+
+/* Table Management Controls */
+.card-body .row.align-items-center {
+    margin-bottom: 1.5rem;
+}
+
+.card-body label {
+    color: var(--color-dark);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.total-records,
+.empty-state {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding-left: 3px;
+    gap: 3px;
+    color: var(--color-dark);
+}
+
+/* ========================================================================= */
+/* 16. PAGINATION NAVIGATION                                                 */
+/* ========================================================================= */
+
+.pagination {
+    margin-top: 1.5rem;
+}
+
+.pagination .page-link {
+    white-space: nowrap;
+    color: var(--color-dark);
+    text-decoration: none;
+    border: var(--border-width) solid var(--color-border);
+    background-color: var(--color-white);
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border-radius: 6px;
+}
+
+.pagination .page-link:hover {
+    color: var(--color-dark);
+    background-color: var(--color-bg);
+    border-color: var(--color-danger-light);
+}
+
+.pagination .page-link:focus {
+    border-color: var(--color-danger-light) !important;
+    box-shadow: var(--shadow-focus) !important;
+    outline: none;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-white) !important;
+}
+
+.pagination .page-item.active .page-link:focus {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 5px rgba(85, 85, 85, 0.5) !important;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: var(--color-gray);
+    pointer-events: none;
+    background-color: var(--color-gray-light);
+    border-color: var(--color-border);
+}
+
+/* ========================================================================= */
+/* 17. ALERTS AND NOTIFICATIONS                                              */
+/* ========================================================================= */
+
+.alerts-container {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 90%;
+    max-width: 600px;
+}
+
+.custom-alert {
+    position: relative;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-alert);
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.alert-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.alert-text {
+    font-size: 1rem;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Alert Type: Error */
+.alert-error {
+    background: linear-gradient(135deg, var(--color-danger-bg) 0%, #f5c6cb 100%);
+    border-left: 4px solid var(--color-danger);
+    color: var(--color-danger-text);
+}
+
+.alert-error .alert-icon {
+    color: var(--color-danger);
+}
+
+/* Alert Type: Success */
+.alert-success {
+    background: linear-gradient(135deg, var(--color-success-bg) 0%, var(--color-success-light) 100%);
+    border-left: 4px solid var(--color-success);
+    color: var(--color-success-text);
+}
+
+.alert-success .alert-icon {
+    color: var(--color-success);
+}
+
+/* Alert Type: Warning */
+.alert-warning {
+    background: var(--gradient-warning);
+    border-left: 4px solid var(--color-warning);
+    color: var(--color-warning-text);
+}
+
+.alert-warning .alert-icon {
+    color: var(--color-warning);
+}
+
+/* Alert Dismiss Button */
+.alert-close {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    line-height: 1.4;
+}
+
+.alert-close i {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.alert-error .alert-close:hover {
+    background: rgba(192, 0, 0, 0.1);
+    color: var(--color-danger);
+}
+
+.alert-success .alert-close:hover {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--color-success);
+}
+
+.alert-warning .alert-close:hover {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--color-warning);
+}
+
+/* ========================================================================= */
+/* 18. RESPONSIVE MEDIA QUERIES                                              */
+/* ========================================================================= */
+
+@media (max-width: 1200px) {
+    .clients-table thead th {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .clients-table thead th {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.15rem;
+    }
+}
+
+/* Tablet devices (768px and down) */
+@media (max-width: 768px) {
+    .card-body {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        min-width: 900px;
+        font-size: 0.8rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px 5px;
+    }
+
+    .actions-col {
+        min-width: 300px;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    .page-size-select,
+    .search-input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #pageSizeForm,
+    #searchForm {
+        width: 100%;
+    }
+
+    #pageSizeForm label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-dialog.modal-lg {
+        max-width: 95vw;
+    }
+
+    .modal-body {
+        padding: 1.25rem !important;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .modal-footer {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+}
+
+/* Mobile devices (576px and down) */
+@media (max-width: 576px) {
+    .data-table {
+        min-width: 800px;
+        font-size: 0.75rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 4px;
+    }
+
+    .actions-col {
+        min-width: 250px;
+        width: 250px;
+    }
+
+    .actions .btn {
+        padding: 3px 6px !important;
+        min-width: 70px;
+        height: auto;
+        font-size: 0.7rem;
+    }
+
+    .column-number {
+        width: 40px;
+    }
+
+    .phone-number {
+        width: 100px;
+    }
+
+    .modal-dialog.modal-lg {
+        max-width: 90vw;
+    }
+
+    .modal-header {
+        padding: 1rem !important;
+    }
+
+    .modal-body {
+        padding: 1rem !important;
+    }
+
+    .modal-footer {
+        padding: 0.75rem !important;
+    }
+
+    .modal-body .form-control,
+    .modal-body input,
+    .modal-body .form-select {
+        font-size: 0.95rem !important;
+        padding: 0.5rem 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .modal-body label {
+        font-size: 0.9rem !important;
+    }
+
+    .alerts-container {
+        width: 95%;
+    }
+
+    .custom-alert {
+        padding: 0.75rem 1rem;
+        margin-bottom: 8px;
+    }
+
+    .alert-icon {
+        font-size: 18px;
+    }
+
+    .alert-text {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small mobile devices (480px and down) */
+@media (max-width: 480px) {
+    .data-table {
+        min-width: 700px;
+        font-size: 0.75rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 6px 3px;
+    }
+
+    .actions-col {
+        min-width: 200px;
+    }
+
+    .actions .btn {
+        padding: 2px 4px !important;
+        min-width: 50px;
+        font-size: 0.65rem;
+    }
+
+    .column-number {
+        width: 35px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+}

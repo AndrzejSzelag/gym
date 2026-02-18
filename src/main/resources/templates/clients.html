@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${@environment.getProperty('app.display.name')}">GYM</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/icons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/my.css}"/>
+</head>
+<body>
+
+<div th:replace="~{menu.html :: logged-in-navbar}"></div>
+
+<div class="container-fluid">
+    <div class="mt-2">
+        <div class="card shadow-sm bg-light">
+            <div class="card-body">
+
+                <div class="display-6 mt-2 mb-4">
+                    <i class="lni lni-network me-2 text-danger"></i>
+                    <span th:text="#{clients.list.header}">Clients</span>
+                </div>
+
+                <!-- page size, search & clear -->
+                <div class="row align-items-center mb-5">
+                    <div class="col-md-4 d-flex justify-content-md-start">
+                        <div th:replace="~{fragments/page-size :: pageSizeForm(actionUrl='/clients',
+                        labelKey='select.clientsPerPage')}"></div>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-md-end align-items-center">
+                        <div th:replace="~{fragments/search-bar :: searchBar(actionUrl='/clients',
+                        placeholderKey='filter.name')}"></div>
+                        <div th:replace="~{fragments/search-bar :: clearSearch(keyword=${keyword},
+                        pageSize=${pageSize}, sortField=${sortField}, sortDirection=${sortDirection})}"></div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="clientTable" class="table data-table clients-table">
+                        <thead th:with="baseUrl='/clients'">
+                        <tr>
+                            <th class="column-number">#</th>
+                            <!-- table-utils.html -->
+                            <th th:replace="~{fragments/table-utils :: sortable('firstName', 'client.list.firstName')}"></th>
+                            <th th:replace="~{fragments/table-utils :: sortable('lastName', 'client.list.lastName')}"></th>
+                            <th th:replace="~{fragments/table-utils :: sortable('email', 'client.list.email')}"></th>
+                            <th th:replace="~{fragments/table-utils :: sortable('phone', 'client.list.phone')}"></th>
+                            <th th:replace="~{fragments/table-utils :: simpleHeader('form.address', 'text-muted')}"></th>
+                            <th th:replace="~{fragments/table-utils :: statusHeader(2)}"></th>
+                            <th th:replace="~{fragments/table-utils :: addClientHeader(4)}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="client, rowStat: ${clients}">
+                            <td class="column-number" th:text="${(currentPage - 1) * pageSize + rowStat.count}"></td>
+                            <td th:text="${client.firstName}">Andrzej</td>
+                            <td th:text="${client.lastName}">Szeląg</td>
+                            <td th:text="${client.email}">andrzej.szelag@gym.pl</td>
+                            <td th:text="${client.phone}">123456789</td>
+                            <td class="text-center">
+                                <i class="lni lni-home" th:classappend="${!#strings.isEmpty(client.address)}
+                                ? 'text-success fw-bolder'
+                                : 'text-muted opacity-50'"></i>
+                            </td>
+                            <!-- membership status -->
+                            <td class="membership-status-col-bg" th:classappend="${!client.hasAssignedSubscription()} ? ' text-center' : ''">
+                                <span class="badge" th:classappend="${@clientSubscriptionViewHelper.getBadgeClass(client.membershipStatus)}"
+                                      th:text="#{${client.membershipStatus.i18nKey}}">Status</span>
+                                <span th:if="${client.hasAssignedSubscription()}" class="badge"
+                                      th:classappend="${@clientSubscriptionViewHelper.getDaysBadgeClass(client.daysUntilOrSinceExpiration())}"
+                                      th:text="${client.daysUntilOrSinceExpiration()} + ' ' + #{days.suffix}">30 days</span>
+                            </td>
+                            <td class="membership-status-col-bg">
+                                <span th:if="${client.hasAssignedSubscription()}" class="badge bg-secondary"
+                                      th:text="${#temporals.format(client.expirationDate, 'dd.MM.yyyy')}">Date</span>
+                                <span th:unless="${client.hasAssignedSubscription()}" class="text-muted">-</span>
+                            </td>
+                            <!-- actions -->
+                            <td class="actions-col">
+                                <div class="actions">
+                                    <button th:if="${client.hasAssignedSubscription()}"
+                                            type="button"
+                                            class="btn btn-sm btn-light shadow-sm fw-bold renew-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#renewModal"
+                                            th:data-client-id="${client.id}"
+                                            th:data-client-name="${client.fullName}"
+                                            th:data-client-expiration="${client.expirationDate}">
+                                        <i class="lni lni-heart me-1"></i>
+                                        <span th:text="#{client.list.renew}">Renew</span>
+                                    </button>
+                                    <button th:unless="${client.hasAssignedSubscription()}"
+                                            type="button"
+                                            class="btn btn-sm btn-light shadow-sm fw-bold assign-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#renewModal"
+                                            th:data-client-id="${client.id}"
+                                            th:data-client-name="${client.fullName}">
+                                        <i class="lni lni-credit-cards me-1"></i>
+                                        <span th:text="#{client.list.assign}">Assign</span>
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-sm btn-light shadow-sm fw-bold details-ajax-btn"
+                                            th:data-client-id="${client.id}">
+                                        <i class="lni lni-license me-1"></i>
+                                        <span th:text="#{client.list.details}">Details</span>
+                                    </button>
+                                    <a th:href="@{/clients/{id}/edit(id=${client.id}, pageNo=${currentPage},
+                                    pageSize=${pageSize}, sortField=${sortField}, sortDirection=${sortDirection},
+                                    keyword=${keyword})}"
+                                       class="btn btn-sm btn-light shadow-sm fw-bold">
+                                        <i class="lni lni-pencil-alt me-1"></i>
+                                        <span th:text="#{client.list.edit}">Edit</span>
+                                    </a>
+                                    <button type="button"
+                                            class="btn btn-sm btn-light shadow-sm fw-bold delete-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal"
+                                            th:data-client-id="${client.id}"
+                                            th:data-client-name="${client.fullName}"
+                                            th:data-client-email="${client.email}"
+                                            th:data-client-address="${!#strings.isEmpty(client.address) ? client.fullAddress : '-'}">
+                                        <i class="lni lni-trash-can me-1"></i>
+                                        <span th:text="#{form.delete}">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- total records or list empty -->
+                    <div th:replace="~{fragments/stats :: tableStats(items=${clients}, total=${totalItems},
+                                                                            labelTotal='clients.totalRecords',
+                                                                            labelEmpty='clients.list.empty')}">
+                    </div>
+                    <!-- pagination -->
+                    <div th:replace="~{fragments/pagination :: pagination(baseUrl='/clients')}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/all-modals :: all-modals}"></div>
+<div th:replace="~{fragments/all-scripts :: core-scripts}"></div>
+<div th:replace="~{fragments/all-js-config :: global-js-config}"></div>
+
+</body>
+</html>

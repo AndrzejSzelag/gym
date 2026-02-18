@@ -1,0 +1,32 @@
+<div class="modal fade"
+     id="errorModal"
+     tabindex="-1"
+     aria-labelledby="errorModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content error-modal">
+            <!-- Modal Header -->
+            <div class="modal-header error-header">
+                <h5 class="modal-title" id="errorModalLabel">
+                    <i class="lni lni-cross-circle me-1"></i>
+                    <span th:text="#{modal.error.title}">Error</span>
+                </h5>
+                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body error-body">
+                <p class="mt-2 mb-2">
+                    <i class="lni lni-warning text-danger me-1"></i>
+                    <span id="errorMessageText" th:text="#{modal.error.default}">Sorry, something went wrong!</span>
+                </p>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer error-footer justify-content-center">
+                <button type="button" class="btn confirm-btn-danger-red" data-bs-dismiss="modal">
+                    <i class="lni lni-close me-1"></i>
+                    <span th:text="#{form.close}">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content success-modal">
+            <div class="modal-header success-header">
+                <h5 class="modal-title" id="successModalLabel">
+                    <i class="lni lni-checkmark-circle me-1"></i>
+                    <span th:text="#{modal.success.title}">Sukces</span>
+                </h5>
+                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body success-body">
+                <p class="mt-2 mb-2">
+                    <i class="lni lni-thumbs-up text-success me-1"></i>
+                    <span id="successMessageText"
+                          th:text="#{modal.success.default}">Operation completed successfully!</span>
+                </p>
+            </div>
+            <div class="modal-footer success-footer justify-content-center">
+                <button type="button" class="btn confirm-btn-success-green" data-bs-dismiss="modal">
+                    <i class="lni lni-close me-1"></i>
+                    <span th:text="#{form.close}">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

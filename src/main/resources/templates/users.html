@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${@environment.getProperty('app.display.name')}">GYM</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/icons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/my.css}"/>
+</head>
+<body>
+
+<div th:replace="~{menu.html :: logged-in-navbar}"></div>
+
+<div class="container-fluid">
+    <div class="mt-2">
+        <div class="card shadow-sm bg-light">
+            <div class="card-body">
+
+                <div class="display-6 mt-2 mb-4">
+                    <i class="lni lni-users me-2 text-danger"></i>
+                    <span th:text="#{users.list.header}">Users</span>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="userTable" class="table data-table users-table">
+                        <thead>
+                        <tr>
+                            <th class="column-number">#</th>
+                            <th th:text="#{user.list.firstName}">First Name</th>
+                            <th th:text="#{user.list.lastName}">Last Name</th>
+                            <th th:text="#{user.list.fullName}">User</th>
+                            <th th:text="#{user.list.email}">Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user, rowStat: ${users}">
+                            <td class="column-number" th:text="${rowStat.index + 1}">1</td>
+                            <td th:text="${user.firstName}">Andrzej</td>
+                            <td th:text="${user.lastName}">Szeląg</td>
+                            <td th:text="${user.fullName}">Andrzej Szeląg</td>
+                            <td th:text="${user.email}">andrzej.szelag@gym.pl</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div th:if="${totalItems > 0}" class="total-records">
+                        <i class="lni lni-database me-1 text-danger"></i>
+                        <span th:text="#{users.totalRecords}">Total users:</span>
+                        <span th:text="${totalItems}" class="badge rounded-pill bg-secondary text-dark">0</span>
+                    </div>
+
+                    <div th:if="${users.isEmpty()}" class="empty-state">
+                        <i class="lni lni-database me-1 text-danger"></i>
+                        <span th:text="#{users.list.empty}">The users list is empty!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<div th:fragment="detailsModalContent" th:object="${client}">
+
+    <div class="modal fade"
+         id="dynamicDetailsModal"
+         tabindex="-1"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content details-modal border-0 shadow-lg">
+
+                <!-- Modal Header -->
+                <div class="modal-header details-header bg-light">
+                    <h5 class="modal-title">
+                        <i class="lni lni-license me-2 text-danger"></i>
+                        <span th:text="#{modal.details.title}">Client Details</span>
+                    </h5>
+                    <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body details-body p-4">
+                    <input type="hidden" th:value="*{id}" id="detailsClientId">
+                    <div class="details-client-info mb-2">
+                        <h5 class="fw-bold mb-0">
+                            <span th:text="|*{firstName} *{lastName}|">Andrzej Szeląg</span>
+                        </h5>
+                        <div class="text-muted small">
+                            <i class="lni lni-envelope me-1"></i> <span th:text="*{email}">andrzejszelag@gym.com</span>
+                            <span class="mx-2">|</span>
+                            <i class="lni lni-phone me-1"></i> <span th:text="*{phone}">123456789</span>
+                        </div>
+                    </div>
+                    <div th:if="*{address != null and !#strings.isEmpty(address.street)}"
+                         class="alert alert-text border-0 rounded-3 mb-2">
+                        <i class="lni lni-map-marker me-1"></i>
+                        <span th:text="|*{address.street} *{address.streetNumber}|">Street 1</span>
+                        <span th:if="*{!#strings.isEmpty(address.homeNumber)}"
+                              th:text="| / *{address.homeNumber}|">/ 2</span>
+                        <div class="ms-4 text-muted small" th:text="|*{address.postCode} *{address.city}|">00-000 City
+                        </div>
+                    </div>
+                    <div th:unless="*{address != null and !#strings.isEmpty(address.street)}"
+                         class="alert alert-text border-0 rounded-3 mb-2">
+                    </div>
+
+                    <div class="subscription-container rounded border bg-white overflow-hidden">
+                        <table class="table table-borderless align-middle mb-0">
+                            <tbody class="small">
+                            <tr>
+                                <td class="py-3 px-3 text-secondary bg-light">
+                                    <h6 th:text="#{membership.status}">Membership Status</h6>
+                                </td>
+                                <td class="py-3 px-3 text-end bg-light">
+                                    <span class="badge shadow-sm"
+                                          th:classappend="${@clientSubscriptionViewHelper.getBadgeClass(client.membershipStatus)}"
+                                          th:text="#{${client.membershipStatus.i18nKey}}">Active</span>
+                                    <span th:if="${client.hasAssignedSubscription()}"
+                                          class="badge shadow-sm"
+                                          th:classappend="${@clientSubscriptionViewHelper.getDaysBadgeClass(client.daysUntilOrSinceExpiration())}"
+                                          th:text="|${client.daysUntilOrSinceExpiration()} #{days.suffix}|">30 days</span>
+                                </td>
+                            </tr>
+                            <tr th:if="${client.hasAssignedSubscription()}">
+                                <td class="py-3 px-3 text-secondary bg-light">
+                                    <h6 th:text="#{membership.current.validity}">Current validity</h6>
+                                </td>
+                                <td class="py-3 px-3 text-end bg-light">
+                                    <span class="badge bg-secondary shadow-sm"
+                                          th:text="${#temporals.format(client.expirationDate, 'dd.MM.yyyy')}">2025-12-31</span>
+                                </td>
+                            </tr>
+                            <tr th:unless="${client.hasAssignedSubscription()}">
+                                <td colspan="2" class="px-3 py-3 text-center text-danger bg-light">
+                                    <h6 th:text="#{membership.status.none}">No active membership assigned!</h6>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="modal-footer border-0 justify-content-center pb-4">
+                <button type="button" class="btn btn-danger px-4 rounded-pill" data-bs-dismiss="modal">
+                    <i class="lni lni-trash-can me-1"></i> <span th:text="#{form.close}">Close</span>
+                </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

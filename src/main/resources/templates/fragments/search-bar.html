@@ -1,0 +1,33 @@
+<div th:fragment="searchBar(actionUrl, placeholderKey)">
+    <form th:action="${actionUrl}" method="get" id="searchForm"
+          class="d-flex align-items-center"
+          th:classappend="${not #strings.isEmpty(keyword)} ? 'd-none' : ''">
+        <input type="hidden" name="sortField" th:value="${sortField}"/>
+        <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
+        <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+        <input type="text" id="keyword"
+               class="form-control-sm search-input me-1"
+               name="keyword"
+               th:placeholder="#{${placeholderKey}}"/>
+        <button type="submit" class="btn btn-sm btn-light shadow-sm fw-bold">
+            <i class="lni lni-search me-1 text-danger"></i>
+            <span th:text="#{filter.search}">Search</span>
+        </button>
+    </form>
+</div>
+
+<div th:fragment="clearSearch(keyword, pageSize, sortField, sortDirection)">
+    <div th:if="${not #strings.isEmpty(keyword)}" class="d-flex align-items-center">
+        <div class="d-flex align-items-center p-2 me-2 search-input">
+            <i class="lni lni-funnel me-1 text-danger fw-bold"></i>
+            <span class="me-1 text-danger" th:text="#{filter.resultsFor}">Results for:</span>
+            <span class="badge bg-danger text-white me-2">
+                <strong th:text="${keyword}">Andrzej</strong>
+            </span>
+        </div>
+        <a href="javascript:void(0)" id="clear" class="btn btn-sm btn-light shadow-sm fw-bold me-1">
+            <i class="lni lni-eraser me-1 clear-btn text-danger"></i>
+            <span th:text="#{filter.clear}">Clear</span>
+        </a>
+    </div>
+</div>

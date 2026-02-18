@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="global-js-config">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        /**
+         * Global API Routes
+         * Combined with ID in JS: `${window.CLIENTS_URL}/${id}/renew`
+         */
+        window.CLIENTS_URL = /*[[@{/clients}]]*/ '/clients';
+
+        /**
+         * Modal State Management
+         * Handles visibility after form validation errors
+         */
+        window.showAddModal  = /*[[${showAddModal ?: false}]]*/ false;
+        window.showEditModal = /*[[${showEditModal ?: false}]]*/ false;
+        window.editClientId  = /*[[${editClientId ?: null}]]*/ null;
+
+        /**
+         * Notifications
+         */
+        window.hasSuccessMessage = /*[[${successMessage != null}]]*/ false;
+        window.successMessage    = /*[[${successMessage}]]*/ '';
+        window.hasErrorMessage   = /*[[${errorMessage != null}]]*/ false;
+        window.errorMessage      = /*[[${errorMessage}]]*/ '';
+
+        /*]]>*/
+    </script>
+</th:block>
+</html>

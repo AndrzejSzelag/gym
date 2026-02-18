@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${@environment.getProperty('app.display.name')}">GYM</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/icons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/my.css}"/>
+</head>
+<body class="app-background d-flex justify-content-center align-items-center">
+
+<div class="alerts-container">
+    <div th:if="${param.error != null}" class="custom-alert alert-error">
+        <div class="alert-content">
+            <i class="lni lni-cross-circle alert-icon"></i>
+            <span class="alert-text" th:text="#{login.register.user.error}">Error</span>
+        </div>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="lni lni-close"></i>
+        </button>
+    </div>
+
+    <div th:if="${successMessage != null or param.logout != null}" class="custom-alert alert-success">
+        <div class="alert-content">
+            <i class="lni lni-checkmark-circle alert-icon"></i>
+            <span class="alert-text"
+                  th:text="${successMessage != null ? successMessage : #messages.msg('login.register.user.success')}">
+                Success
+            </span>
+        </div>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="lni lni-close"></i>
+        </button>
+    </div>
+
+    <div th:if="${param.timeout != null}" class="custom-alert alert-warning">
+        <div class="alert-content">
+            <i class="lni lni-alarm-clock alert-icon"></i>
+            <span class="alert-text" th:text="#{login.session.timeout}">Session expired</span>
+        </div>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+            <i class="lni lni-close"></i>
+        </button>
+    </div>
+</div>
+
+<div class="card login-card p-5 shadow">
+    <div class="app-display-name mb-3" th:text="${@environment.getProperty('app.display.name')}">GYM</div>
+
+    <hr class="gradient-center-light">
+
+    <div class="display-header mt-3 mb-4" th:text="#{user.login.header}">Sign In</div>
+
+    <form th:action="@{/login}" method="post">
+        <div class="mb-3">
+            <div class="input-group">
+                <span class="input-group-text form-input-group-text">
+                    <i class="lni lni-envelope" aria-hidden="true"></i></span>
+                <input class="form-control form-input" id="username" name="username" type="email"
+                       th:placeholder="#{form.email}" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="input-group">
+                <span class="input-group-text form-input-group-text">
+                    <i class="lni lni-lock-alt" aria-hidden="true"></i></span>
+                <input class="form-control form-input" id="password" name="password" type="password"
+                       th:placeholder="#{form.password}" required>
+            </div>
+        </div>
+        <button class="btn btn-danger w-100 fw-bold rounded-pill d-flex align-items-center justify-content-center gap-2"
+                type="submit">
+            <i class="lni lni-checkmark"></i>
+            <span th:text="#{form.login}">Sign In</span>
+        </button>
+        <div class="text-center mt-5">
+            <span th:text="#{login.register.user.no}"></span>
+            <a th:href="@{/register}" class="fw-bolder text-decoration-none text-danger"
+               th:text="#{login.register.account}">Register</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

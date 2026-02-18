@@ -1,0 +1,215 @@
+<div class="modal fade"
+     id="editModal"
+     tabindex="-1"
+     aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content edit-client-modal">
+            <!-- Modal Header -->
+            <div class="modal-header edit-header">
+                <h5 class="modal-title" id="editModalLabel">
+                    <i class="lni lni-pencil-alt me-1"></i>
+                    <span th:text="#{modal.edit.title}">Edit Client Data</span>
+                </h5>
+                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Form -->
+            <form id="editForm"
+                  th:action="@{/clients/{id}(id=${editClientId})}"
+                  th:object="${client}"
+                  method="post"
+                  class="needs-validation" novalidate>
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <input type="hidden" name="pageNo" th:value="${currentPage}"/>
+                <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+                <input type="hidden" name="sortField" th:value="${sortField}"/>
+                <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
+                <input type="hidden" name="keyword" th:value="${keyword != null ? keyword : ''}"/>
+
+                <!-- Modal Body -->
+                <div class="modal-body edit-body">
+                    <!-- firstName -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-user"></i>
+                            </span>
+                            <input class="form-control form-input"
+                                   th:field="*{firstName}"
+                                   th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'"
+                                   th:placeholder="#{form.firstName}"
+                                   id="editFirstName"
+                                   type="text" required />
+                        </div>
+                        <p class="text-danger mt-1" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+                    </div>
+                    <!-- lastName -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-user"></i>
+                            </span>
+                            <input class="form-control form-input"
+                                   th:field="*{lastName}"
+                                   th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'"
+                                   th:placeholder="#{form.lastName}"
+                                   id="editLastName"
+                                   type="text" required />
+                        </div>
+                        <p class="text-danger mt-1" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+                    </div>
+                    <!-- email -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-envelope" aria-hidden="true"></i></span>
+                            <input class="form-control form-input"
+                                   th:field="*{email}"
+                                   th:placeholder="#{form.email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                   id="editEmail" type="email" />
+                        </div>
+                        <div class="invalid-feedback d-block small"
+                             th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}">
+                        </div>
+                    </div>
+                    <!-- phone -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-phone"></i>
+                            </span>
+                            <input class="form-control form-input"
+                                   th:field="*{phone}"
+                                   th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'"
+                                   th:placeholder="#{form.phone}"
+                                   id="editPhone"
+                                   type="text" required />
+                        </div>
+                        <p class="text-danger mt-1" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+                    </div>
+                    <!-- Optional Address Accordion -->
+                    <div id="editAddressAccordion"
+                         class="accordion mb-3">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEditAddress">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#editAddressSection"
+                                        aria-expanded="false" aria-controls="editAddressSection">
+                                    <i class="lni lni-map-marker me-2"></i>
+                                    <span th:text="#{form.address}">Address</span>
+                                </button>
+                            </h2>
+                            <div id="editAddressSection"
+                                 class="accordion-collapse collapse"
+                                 aria-labelledby="headingEditAddress"
+                                 data-bs-parent="#editAddressAccordion">
+
+                                <div class="accordion-body p-2">
+                                    <div class="mt-2 mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text form-input-group-text">
+                                                <i class="lni lni-map-marker"></i>
+                                            </span>
+                                            <input class="form-control form-input"
+                                                   th:field="*{address.street}"
+                                                   th:placeholder="#{form.street}"
+                                                   id="editStreet" type="text" />
+                                        </div>
+                                        <p class="text-danger mt-1"
+                                           th:if="${client.address != null and #fields.hasErrors('address.street')}"
+                                           th:errors="*{address.street}">
+                                        </p>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-home"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.streetNumber}"
+                                                       th:placeholder="#{form.streetNumber}"
+                                                       id="editStreetNumber"
+                                                       type="text"/>
+                                            </div>
+                                            <p class="text-danger mt-1"
+                                               th:if="${client.address != null and #fields.hasErrors('address.streetNumber')}"
+                                               th:errors="*{address.streetNumber}">
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-apartment"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.homeNumber}"
+                                                       th:placeholder="#{form.homeNumber}"
+                                                       id="editHomeNumber"
+                                                       type="text"/>
+                                            </div>
+                                            <p class="text-danger mt-1"
+                                               th:if="${client.address != null and #fields.hasErrors('address.homeNumber')}"
+                                               th:errors="*{address.homeNumber}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-code"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.postCode}"
+                                                       th:placeholder="#{form.postCode}"
+                                                       id="editPostCode"
+                                                       type="text" />
+                                            </div>
+                                            <p class="text-danger mt-1"
+                                               th:if="${client.address != null and #fields.hasErrors('address.postCode')}"
+                                               th:errors="*{address.postCode}">
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-layers"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.city}"
+                                                       th:placeholder="#{form.city}"
+                                                       id="editCity"
+                                                       type="text"/>
+                                            </div>
+                                            <p class="text-danger mt-1"
+                                               th:if="${client.address != null and #fields.hasErrors('address.city')}"
+                                               th:errors="*{address.city}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer edit-footer border-0 justify-content-center pb-4">
+                    <button type="button" class="btn btn-secondary px-4 rounded-pill" data-bs-dismiss="modal">
+                        <i class="lni lni-close me-1"></i>
+                        <span th:text="#{form.cancel}">Cancel</span>
+                    </button>
+                    <button type="submit" class="btn btn-danger px-4 rounded-pill shadow-sm">
+                        <i class="lni lni-save me-1"></i> <span th:text="#{form.submit}">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

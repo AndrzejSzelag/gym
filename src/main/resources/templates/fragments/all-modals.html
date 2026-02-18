@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="all-modals">
+    <div th:replace="~{success-modal.html}"></div>
+    <div th:replace="~{error-modal.html}"></div>
+    <div th:replace="~{renew-modal.html}"></div>
+    <div th:replace="~{new-client-modal.html}"></div>
+    <div th:replace="~{edit-client-modal.html}"></div>
+    <div th:replace="~{delete-modal.html}"></div>
+    <div id="details-modal"></div>
+</th:block>
+</html>

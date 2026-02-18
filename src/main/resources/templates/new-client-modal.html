@@ -1,0 +1,214 @@
+<div class="modal
+fade" id="clientModal"
+     tabindex="-1"
+     aria-labelledby="clientModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content add-client-modal">
+            <!-- Header -->
+            <div class="modal-header add-header">
+                <h5 class="modal-title" id="clientModalLabel">
+                    <i class="lni lni-plus me-1" aria-hidden="true"></i>
+                    <span th:text="#{modal.add.title}">Add New Client</span>
+                </h5>
+                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <!-- Form -->
+            <form id="addClientForm"
+                  method="post"
+                  class="needs-validation" novalidate
+                  th:object="${newClient}"
+                  th:action="@{/clients}">
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <input type="hidden" name="pageNo" th:value="${currentPage}"/>
+                <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+                <input type="hidden" name="sortField" th:value="${sortField}"/>
+                <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
+                <input type="hidden" name="keyword" th:value="${keyword != null ? keyword : ''}"/>
+
+                <div class="modal-body add-body">
+                    <!-- firsName -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-user" aria-hidden="true"></i>
+                            </span>
+                            <input class="form-control form-input"
+                                   th:field="*{firstName}"
+                                   th:placeholder="#{form.firstName}"
+                                   th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'"
+                                   id="addFirstName" type="text" required/>
+                        </div>
+                        <div class="invalid-feedback d-block"
+                             th:errors="*{firstName}">
+                        </div>
+                    </div>
+                    <!-- lastName -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-user" aria-hidden="true"></i>
+                            </span>
+                            <input class="form-control form-input"
+                                   th:field="*{lastName}"
+                                   th:placeholder="#{form.lastName}"
+                                   th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid'"
+                                   id="addLastName" type="text" required/>
+                        </div>
+                        <div class="invalid-feedback d-block"
+                             th:errors="*{lastName}">
+                        </div>
+                    </div>
+                    <!-- email -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-envelope" aria-hidden="true"></i></span>
+                            <input class="form-control form-input"
+                                   th:field="*{email}"
+                                   th:placeholder="#{form.email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                   id="addEmail" type="email"/>
+                        </div>
+                        <div class="invalid-feedback d-block small"
+                             th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}">
+                        </div>
+                    </div>
+                    <!-- phone -->
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text form-input-group-text">
+                                <i class="lni lni-phone" aria-hidden="true"></i>
+                            </span>
+                            <input class="form-control form-input"
+                                   th:field="*{phone}"
+                                   th:placeholder="#{form.phone}"
+                                   th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'"
+                                   id="addPhone" type="text" required/>
+                        </div>
+                        <div class="invalid-feedback d-block"
+                             th:errors="*{phone}">
+                        </div>
+                    </div>
+                    <!-- Optional Address Accordion -->
+                    <div id="addAddressAccordion"
+                         class="accordion mb-3">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingAddAddress">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#addAddressSection"
+                                        aria-expanded="false" aria-controls="addAddressSection">
+                                    <i class="lni lni-map-marker me-2"></i>
+                                    <span th:text="#{form.address}">Address</span>
+                                </button>
+                            </h2>
+                            <div id="addAddressSection"
+                                 class="accordion-collapse collapse"
+                                 aria-labelledby="headingAddAddress"
+                                 data-bs-parent="#addAddressAccordion">
+
+                                <div class="accordion-body p-2">
+                                    <div class="mt-2 mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text form-input-group-text">
+                                                <i class="lni lni-map-marker"></i>
+                                            </span>
+                                            <input class="form-control form-input"
+                                                   th:field="*{address.street}"
+                                                   th:placeholder="#{form.street}"
+                                                   id="addStreet" type="text"/>
+                                        </div>
+                                        <div class="invalid-feedback d-block"
+                                             th:errors="*{address.street}">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-home" aria-hidden="true"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.streetNumber}"
+                                                       th:placeholder="#{form.streetNumber}"
+                                                       id="addStreetNumber"
+                                                       type="text"/>
+                                            </div>
+                                            <div class="invalid-feedback d-block"
+                                                 th:errors="*{address.streetNumber}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-apartment" aria-hidden="true"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.homeNumber}"
+                                                       th:placeholder="#{form.homeNumber}"
+                                                       id="addHomeNumber" type="text"/>
+                                            </div>
+                                            <div class="invalid-feedback d-block"
+                                                 th:errors="*{address.homeNumber}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-code" aria-hidden="true"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.postCode}"
+                                                       th:placeholder="#{form.postCode}"
+                                                       id="addPostCode" type="text"/>
+                                            </div>
+                                            <div class="invalid-feedback d-block"
+                                                 th:errors="*{address.postCode}">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <span class="input-group-text form-input-group-text">
+                                                    <i class="lni lni-layers" aria-hidden="true"></i>
+                                                </span>
+                                                <input class="form-control form-input"
+                                                       th:field="*{address.city}"
+                                                       th:placeholder="#{form.city}"
+                                                       id="addCity" type="text"/>
+                                            </div>
+                                            <div class="invalid-feedback d-block"
+                                                 th:errors="*{address.city}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer add-footer border-0 justify-content-center pb-4">
+                    <button type="button" class="btn btn-secondary px-4 rounded-pill" data-bs-dismiss="modal">
+                        <i class="lni lni-close me-1"></i>
+                        <span th:text="#{form.cancel}">Cancel</span>
+                    </button>
+                    <button type="submit" class="btn btn-danger px-4 rounded-pill shadow-sm">
+                        <i class="lni lni-plus me-1"></i>
+                        <span th:text="#{form.submit}">Save</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="modal fade"
+     id="renewModal"
+     th:data-no-membership-text="#{membership.status.not_assigned}"
+     tabindex="-1"
+     aria-labelledby="renewModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content renew-modal border-0 shadow-lg">
+
+            <form id="renewForm" method="post" th:action="@{/clients/0/renew}">
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="pageNo" th:value="${currentPage}"/>
+                <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+                <input type="hidden" name="sortField" th:value="${sortField}"/>
+                <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
+                <input type="hidden" name="keyword" th:value="${keyword != null ? keyword : ''}"/>
+
+                <!-- Modal Header -->
+                <div class="modal-header renew-header bg-light">
+                    <h5 class="modal-title" id="renewModalLabel">
+                        <i class="lni lni-heart me-2 text-danger"></i>
+                        <span th:text="#{modal.renew.title}">Renew Membership</span>
+                    </h5>
+                    <button type="button"
+                            class="btn-close custom-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body renew-body p-4">
+                    <div class="renew-client-info mb-4">
+                        <h5 class="fw-bold mb-0">
+                            <span id="renewClientName">Andrzej Szeląg</span>
+                        </h5>
+                    </div>
+                    <div class="subscription-container rounded border bg-white overflow-hidden">
+                        <table class="table table-borderless align-middle mb-0">
+                            <tbody class="small">
+                            <tr>
+                                <td class="py-3 px-3 text-secondary bg-light">
+                                    <h6 th:text="#{membership.current.validity}">Current validity</h6>
+                                </td>
+                                <td class="py-3 px-3 text-end bg-light">
+                                    <span id="renewClientExpiration"
+                                          class="badge bg-secondary shadow-sm"
+                                          th:text="${#temporals.format(client.expirationDate, 'dd.MM.yyyy')}">2025-12-27</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3 text-secondary bg-light">
+                                    <h6 th:text="#{membership.new.validity}">New validity</h6>
+                                </td>
+                                <td class="py-3 px-3 text-end bg-light">
+                                    <span id="newExpirationPreview" class="badge bg-success shadow-sm">*</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="p-2 text-center bg-light">
+                            <small class="text-muted" th:text="#{membership.renewal.info}">
+                                30 days will be added to today or current expiration date.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="modal-footer border-0 justify-content-center pb-4">
+                    <button type="button" class="btn btn-secondary px-4 rounded-pill" data-bs-dismiss="modal">
+                        <i class="lni lni-close me-1"></i>
+                        <span th:text="#{form.cancel}">Cancel</span>
+                    </button>
+                    <button type="submit" id="renewSubmitButton" class="btn btn-danger px-4 rounded-pill shadow-sm">
+                        <i class="lni lni-plus me-1"></i>
+                        <span th:text="#{form.submit}">Confirm</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

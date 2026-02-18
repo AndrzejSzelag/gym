@@ -1,0 +1,58 @@
+<th th:fragment="sortable(fieldName, labelKey)"
+    th:class="${fieldName == 'phone' ? 'phone-number' : ''}"
+    th:with="newDir=${(sortField == fieldName and sortDirection == 'asc') ? 'desc' : 'asc'}">
+
+    <a th:href="@{/clients(pageNo=${currentPage}, sortField=${fieldName},
+    sortDirection=${newDir}, pageSize=${pageSize}, keyword=${keyword})}"
+       class="text-decoration-none text-dark d-flex align-items-center justify-content-between">
+
+        <span th:text="#{${labelKey}}">Label</span>
+
+        <span class="ms-1">
+            <i th:if="${sortField == fieldName}"
+               th:class="'lni ' + (${sortDirection == 'asc'}
+               ? 'lni-chevron-up-circle'
+               : 'lni-chevron-down-circle') + ' text-danger'"></i>
+
+            <i th:if="${sortField != fieldName}"
+               class="lni lni-expand-vertical text-muted"
+               style="opacity: 0.3; font-size: 0.8rem;"></i>
+        </span>
+    </a>
+</th>
+
+<th th:fragment="statusHeader(colspan)"
+    th:colspan="${colspan}"
+    class="membership-status-col expiration-date"
+    th:with="newDir=${(sortField == 'expirationDate' and sortDirection == 'asc') ? 'desc' : 'asc'}">
+
+    <a th:href="@{/clients(pageNo=${currentPage}, sortField='expirationDate',
+    sortDirection=${newDir}, pageSize=${pageSize}, keyword=${keyword})}"
+       class="text-decoration-none text-dark d-flex align-items-center justify-content-between">
+
+        <span th:text="#{membership.status}">Status</span>
+
+        <span class="ms-1">
+            <i th:if="${sortField == 'expirationDate'}"
+               th:class="'lni ' + (${sortDirection == 'asc'}
+               ? 'lni-chevron-up-circle'
+               : 'lni-chevron-down-circle') + ' text-danger fw-bold'"></i>
+
+            <i th:if="${sortField != 'expirationDate'}"
+               class="lni lni-expand-vertical text-muted"
+               style="opacity: 0.3; font-size: 0.8rem;"></i>
+        </span>
+    </a>
+</th>
+
+<th th:fragment="simpleHeader(labelKey, textClass)">
+    <span th:text="#{${labelKey}}" th:class="${textClass}">Label</span>
+</th>
+
+<th th:fragment="addClientHeader(colspan)" th:colspan="${colspan}" class="actions-col">
+    <button type="button" class="btn btn-danger fw-bold shadow-sm w-100"
+            data-bs-toggle="modal" data-bs-target="#clientModal">
+        <i class="lni lni-plus me-1"></i>
+        <span th:text="#{client.add.header}">Add Client</span>
+    </button>
+</th>

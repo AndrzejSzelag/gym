@@ -1,0 +1,22 @@
+<div th:fragment="pageSizeForm(actionUrl, labelKey)">
+    <form th:action="${actionUrl}" method="get"
+          class="d-flex align-items-center w-100">
+
+        <input type="hidden" name="pageNo" value="1"/>
+        <input type="hidden" name="sortField" th:value="${sortField}"/>
+        <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
+        <input type="hidden" name="keyword" th:value="${keyword}"/>
+
+        <label class="me-2 mb-0" th:text="#{${labelKey}}">Items per page:</label>
+
+        <select class="form-select form-select-sm w-auto"
+                name="pageSize"
+                onchange="this.form.submit()">
+            <option th:each="size : ${ {7,10,15,20} }"
+                    th:value="${size}"
+                    th:text="${size}"
+                    th:selected="${pageSize == size}">
+            </option>
+        </select>
+    </form>
+</div>

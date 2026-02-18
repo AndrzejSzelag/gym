@@ -1,0 +1,63 @@
+<div class="modal fade"
+     id="deleteModal"
+     tabindex="-1"
+     aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content delete-modal border-0 shadow-lg">
+
+            <div class="modal-header delete-header bg-light">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="lni lni-trash-can me-2 text-danger"></i>
+                    <span th:text="#{modal.delete.title}">Confirm Client Deletion</span>
+                </h5>
+                <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body delete-body p-4">
+                <div>
+                    <div class="text-muted mb-3" th:text="#{modal.delete.question}">Are you sure you want to delete:</div>
+                    <h5 class="fw-bold mb-1"><span id="modalClientName">Andrzej Szeląg</span></h5>
+                    <div class="text-muted small">
+                        <i class="lni lni-envelope me-1"></i>
+                        <span id="modalClientEmail">andrzej.szelag@gym.pl</span>
+                    </div>
+                </div>
+
+                <div class="text-muted small mb-4">
+                    <i class="lni lni-map-marker me-1"></i>
+                    <span id="modalClientAddress">-</span>
+                </div>
+
+                <div class="subscription-container rounded border bg-light overflow-hidden">
+                    <div class="p-4 text-center text-danger">
+                        <h6 th:text="#{modal.delete.irreversible}">This operation is irreversible!</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer border-0 justify-content-center pb-4">
+                <button type="button" class="btn btn-secondary px-4 rounded-pill" data-bs-dismiss="modal">
+                    <i class="lni lni-close me-1"></i>
+                    <span th:text="#{form.cancel}">Cancel</span>
+                </button>
+
+                <form id="deleteForm" method="post" th:action="@{/clients/0/delete}" style="display:inline;">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="pageNo" th:value="${currentPage}"/>
+                    <input type="hidden" name="pageSize" th:value="${pageSize}"/>
+                    <input type="hidden" name="sortField" th:value="${sortField}"/>
+                    <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
+                    <input type="hidden" name="keyword" th:value="${keyword != null ? keyword : ''}"/>
+
+                    <button type="submit" class="btn btn-danger px-4 rounded-pill shadow-sm">
+                        <i class="lni lni-trash-can me-1"></i>
+                        <span th:text="#{form.delete}">Delete</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

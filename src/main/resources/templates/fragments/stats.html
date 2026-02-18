@@ -1,0 +1,11 @@
+<div th:fragment="tableStats(items, total, labelTotal, labelEmpty)">
+    <div th:if="${total > 0}" class="total-records">
+        <i class="lni lni-database me-1 text-danger"></i>
+        <span th:text="#{${labelTotal}}">Total clients:</span>
+        <span th:text="${total}" class="badge rounded-pill bg-secondary text-dark">0</span>
+    </div>
+    <div th:if="${items.isEmpty()}" class="empty-state">
+        <i class="lni lni-database me-1 text-danger"></i>
+        <span th:text="#{${labelEmpty}}">Client list is empty!</span>
+    </div>
+</div>
