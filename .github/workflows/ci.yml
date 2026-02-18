@@ -42,7 +42,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean verify -Ptest
         env:
-          # Przekazujemy dane do bazy dla Spring Boota w kontenerze CI
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/gym_db
           SPRING_DATASOURCE_USERNAME: gym_user
           SPRING_DATASOURCE_PASSWORD: gym_password
