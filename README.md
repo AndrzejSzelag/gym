@@ -133,10 +133,10 @@ docker compose up -d --build
 
 Access the application at: https://localhost:7777
 
-> [!IMPORTANT] Development credentials only:
-> Email: `testuser@gym.pl`
-> Password: `111111`
->
+> [!IMPORTANT]
+> Development credentials only: Email: testuser@gym.pl Password: 111111
+
+> [!WARNING]
 > **SSL Security**: Since we are using a self-signed certificate for development, your browser will show a warning.
 > Click **"Advanced"** and then **"Proceed to localhost"** to enter the site.
 
