@@ -7,7 +7,6 @@
 ![Maven](https://img.shields.io/badge/Maven-3.9-C71A36?logo=apachemaven&logoColor=white)
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1-005F0F?logo=thymeleaf&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
-
 ![SonarQube](https://img.shields.io/badge/SonarQube-Quality-4E9BCD?logo=sonarqube&logoColor=white)
 ![JaCoCo](https://img.shields.io/badge/JaCoCo-0.8.12-brightgreen)
 ![Checkstyle](https://img.shields.io/badge/Checkstyle-3.5-blue)
